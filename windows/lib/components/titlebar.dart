@@ -525,7 +525,7 @@ class _TitleBarState extends State<TitleBar> with WindowListener {
                 child: Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.only(left: 16),
+                      padding: const EdgeInsets.only(left: 8),
                       child: DefaultTextStyle(
                         style: TextStyle(
                           color: widget.brightness == Brightness.light
@@ -533,7 +533,7 @@ class _TitleBarState extends State<TitleBar> with WindowListener {
                               : Colors.white,
                           fontSize: 14,
                         ),
-                        child: Container(),
+                        child: Text('TheVoice'),
                       ),
                     ),
                   ],
