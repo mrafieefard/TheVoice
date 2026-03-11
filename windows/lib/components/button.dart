@@ -1,27 +1,33 @@
+import 'package:application/theme.config.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Button extends StatefulWidget {
   const Button({
     super.key,
     this.text,
     this.width,
-    required this.height,
+    this.height = 32,
+    this.scaleOnTap = .95,
     required this.onPressed,
     this.hasLoading = false,
     this.isDisabled = false,
     this.icon,
-    this.backgroundColor = Colors.white,
-    this.textStyle = const TextStyle(color: Colors.black),
+    this.backgroundColor,
+    this.textStyle,
+    this.padding = const EdgeInsets.symmetric(horizontal: 12),
   });
 
   final String? text;
   final double? width;
   final double height;
-  final Color backgroundColor;
-  final TextStyle textStyle;
+  final Color? backgroundColor;
+  final TextStyle? textStyle;
   final Widget? icon;
   final bool hasLoading;
   final bool isDisabled;
+  final EdgeInsetsGeometry padding;
+  final double scaleOnTap;
   final Function() onPressed;
 
   @override
@@ -42,10 +48,25 @@ class _ButtonState extends State<Button> {
     setState(() => _isLoading = value);
   }
 
+  Color get backgroundColor {
+    if (widget.backgroundColor != null) return widget.backgroundColor!;
+    return widget.isDisabled || _isLoading ? primary.withAlpha(155) : primary;
+  }
+
+  TextStyle get textStyle {
+    if (widget.textStyle != null) return widget.textStyle!;
+    return TextStyle(
+      color: widget.isDisabled || _isLoading
+          ? Colors.white54
+          : context.theme.colorScheme.onPrimary,
+      fontSize: 14,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onPanDown: (details) => updateScale(0.95),
+      onPanDown: (details) => updateScale(widget.scaleOnTap),
       onPanCancel: () => updateScale(1),
       onPanEnd: (details) => updateScale(1),
       onTap: () async {
@@ -64,14 +85,14 @@ class _ButtonState extends State<Button> {
         duration: Duration(milliseconds: 100),
         child: IntrinsicWidth(
           child: AnimatedContainer(
-            padding: EdgeInsets.symmetric(horizontal: 12),
+            padding: widget.padding,
             width: widget.width,
             duration: Duration(milliseconds: 100),
             height: widget.height,
             decoration: BoxDecoration(
               color: widget.isDisabled || _isLoading
-                  ? widget.backgroundColor.withAlpha(155)
-                  : widget.backgroundColor,
+                  ? backgroundColor.withAlpha(155)
+                  : backgroundColor,
               borderRadius: BorderRadius.circular(0),
             ),
 
@@ -87,12 +108,11 @@ class _ButtonState extends State<Button> {
                     height: 12,
                     child: CircularProgressIndicator(
                       strokeWidth: 2,
-                      color: widget.textStyle.color,
+                      color: textStyle.color,
                       backgroundColor: Colors.transparent,
                     ),
                   ),
-                if (widget.text != null)
-                  Text(widget.text!, style: widget.textStyle),
+                if (widget.text != null) Text(widget.text!, style: textStyle),
               ],
             ),
           ),

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:application/theme.config.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:window_manager/window_manager.dart';
@@ -513,7 +514,7 @@ class _TitleBarState extends State<TitleBar> with WindowListener {
       height: 36,
 
       decoration: BoxDecoration(
-        color: Colors.black,
+        color: backgroundColor,
         border: Border(bottom: BorderSide(color: Colors.white24, width: 1)),
       ),
       child: Row(
@@ -542,7 +543,7 @@ class _TitleBarState extends State<TitleBar> with WindowListener {
             ),
           ),
           WindowCaptionButton.minimize(
-            brightness: widget.brightness,
+            brightness: Brightness.dark,
             onPressed: () async {
               bool isMinimized = await windowManager.isMinimized();
               if (isMinimized) {
@@ -554,19 +555,19 @@ class _TitleBarState extends State<TitleBar> with WindowListener {
           ),
           _isMaximized
               ? WindowCaptionButton.unmaximize(
-                  brightness: widget.brightness,
+                  brightness: Brightness.dark,
                   onPressed: () {
                     windowManager.unmaximize();
                   },
                 )
               : WindowCaptionButton.maximize(
-                  brightness: widget.brightness,
+                  brightness: Brightness.dark,
                   onPressed: () {
                     windowManager.maximize();
                   },
                 ),
           WindowCaptionButton.close(
-            brightness: widget.brightness,
+            brightness: Brightness.dark,
             onPressed: () {
               windowManager.close();
             },

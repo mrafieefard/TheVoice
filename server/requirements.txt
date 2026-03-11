@@ -1,0 +1,8 @@
+python-decouple
+python-dotenv
+fastapi
+beanie
+uvicorn
+httpx
+pyjwt
+pwdlib[argon2]

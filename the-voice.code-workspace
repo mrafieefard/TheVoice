@@ -7,6 +7,30 @@
 			"path": "server"
 		},
 	],
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "Flutter sync openapi",
+				"type": "shell",
+				"command": "dart",
+				"args": [
+					"run",
+					"build_runner",
+					"build",
+					"--delete-conflicting-outputs"
+				],
+				"options": {
+					"cwd": "${workspaceFolder:windows}"
+				},
+				"problemMatcher": [],
+				"presentation": {
+					"reveal": "always"
+				},
+				"group": "build"
+			}
+		]
+	},
 	"settings": {
 		"workbench.colorCustomizations": {
 			"activityBar.background": "#05284A",
