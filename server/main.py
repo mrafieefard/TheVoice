@@ -5,7 +5,9 @@ import asyncio
 
 async def run_server():
     await initDb()
-    await asyncio.gather(run_api_server(),run_voice_server())
+    await asyncio.gather(run_api_server(),run_voice_server(
+        host="0.0.0.0", port=8888
+    ))
     
     
 if __name__ == "__main__":    
